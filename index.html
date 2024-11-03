@@ -3,111 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>beni neden sevmedin</title>
+    <title>Hoşseven Firması</title>
     <style>
-        /* Google Fonts import */
-        @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
-
-        /* Sayfa ve yazı stili */
         body {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
+            font-family: Arial, sans-serif;
             margin: 0;
-            background-color: #f0f0f0;
-            font-family: 'Pacifico', cursive;
+            padding: 0;
+            color: #fff; /* Metin rengi beyaz */
+            overflow: hidden; /* Taşmayı gizle */
         }
-
-        .container {
-            text-align: center;
-        }
-
-        /* Kalp şekli ve kırılma animasyonu */
-        .heart-container {
-            position: relative;
-            width: 120px;
-            height: 120px;
-            cursor: pointer;
-        }
-
-        .left-half, .right-half {
-            position: absolute;
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            transition: transform 0.5s ease, opacity 0.5s ease;
+            z-index: -1; /* Arka planda kalması için */
+            overflow: hidden;
         }
-
-        .left-half {
-            transform-origin: right center;
-            fill: red;
+        .content {
+            position: relative;
+            z-index: 1; /* İçeriğin ön planda görünmesi için */
+            text-align: center;
+            padding: 20px;
         }
-
-        .right-half {
-            transform-origin: left center;
-            fill: red;
+        h1 {
+            color: #ffcc00; /* Başlık rengi sarı */
         }
-
-        /* Kırılma animasyonu */
-        .heart-container.broken .left-half {
-            transform: translateX(-20px) translateY(50px) rotate(-30deg);
-            opacity: 0;
+        p {
+            font-size: 18px;
+            color: #ffffff; /* Paragraf rengi beyaz */
         }
-
-        .heart-container.broken .right-half {
-            transform: translateX(20px) translateY(50px) rotate(30deg);
-            opacity: 0;
+        .info-box {
+            background-color: rgba(0, 0, 0, 0.7); /* Bilgi kutusunun arka plan rengi yarı saydam siyah */
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 600px;
         }
-
-        /* İsimlerin stil ayarları */
-        .names {
-            margin-top: 20px;
-            font-size: 24px;
-            color: #333;
+        .logo-container {
+            display: flex; /* Flexbox ile yan yana yerleştirme */
+            justify-content: center; /* Ortalamak için */
+            position: relative; /* Konumlandırma için */
+            margin-top: 0; /* Üstten boşluk kaldırıldı */
         }
-
-        .names span {
-            display: inline-block;
-            width: 100px;
+        .logo {
+            max-width: 400px; /* Logo boyutu */
+            height: auto; /* Yüksekliği otomatik ayarla */
+            opacity: 0; /* Başlangıçta görünmez */
+            transition: opacity 2s ease; /* Geçiş animasyonu */
         }
-
-        .names .name-left {
-            text-align: right;
-            margin-right: 10px;
+        .logo1 {
+            transform: translateY(-100vh); /* Yukarıdan gizli (tam ekran yüksekliği kadar) */
+            transition: transform 2s ease; /* Yukarıdan düşme animasyonu */
         }
-
-        .names .name-right {
-            text-align: left;
-            margin-left: 10px;
+        .logo2 {
+            transform: translateX(100vw); /* Sağdan gizli (tam ekran genişliği kadar) */
+            transition: transform 2s ease; /* Sağdan gelme animasyonu */
+        }
+        .show .logo1 {
+            opacity: 1; /* Görünür hale getir */
+            transform: translateY(0); /* Yukarıdan aşağıya hareket ettir */
+        }
+        .show .logo2 {
+            opacity: 1; /* Görünür hale getir */
+            transform: translateX(0); /* Sağdan sola hareket ettir */
+        }
+        .button-container {
+            margin-top: 20px; /* Butonlar için üstten boşluk */
+        }
+        .button {
+            background-color: #ffcc00; /* Buton rengi sarı */
+            color: #000; /* Buton metin rengi siyah */
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none; /* Alt çizgiyi kaldır */
+            display: inline-block; /* Butonları yan yana yerleştirmek için */
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <!-- SVG kalp şekli -->
-    <div class="heart-container" onclick="breakHeart()">
-        <svg viewBox="0 0 24 24" class="left-half">
-            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-        </svg>
-        <svg viewBox="0 0 24 24" class="right-half">
-            <path d="M12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35z"/>
-        </svg>
+    <div class="background">
+        <video autoplay muted loop>
+            <source src="https://cdn.pixabay.com/video/2020/05/13/38998-420224615_large.mp4" type="video/mp4">
+            Tarayıcınız video etiketini desteklemiyor.
+        </video>
     </div>
 
-    <!-- İsimler -->
-    <div class="names">
-        <span class="name-left">Zehra</span>
-        <span class="name-right">Emir</span>
+    <div class="content">
+        <div class="logo-container" id="logoContainer">
+            <img src="file:///C:/Users/EM%C4%B0RKAAN/Desktop/hh_%C3%87al%C4%B1%C5%9Fma%20Y%C3%BCzeyi%201.png" alt="Marka 1 Logo" class="logo logo1"> <!-- İlk logo -->
+            <img src="file:///C:/Users/EM%C4%B0RKAAN/Desktop/ho%C5%9Fsevenn_%C3%87al%C4%B1%C5%9Fma%20Y%C3%BCzeyi%201.png" alt="Marka 2 Logo" class="logo logo2"> <!-- İkinci logo -->
+        </div>
+
+        <div class="info-box">
+            <h1>Hoşseven Firması</h1>
+            <p>
+                <strong>Bilgi:</strong> Hoşseven Firması, sektördeki yenilikçi yaklaşımıyla dikkat çekmektedir.
+            </p>
+        </div>
+
+        <div class="button-container">
+            <button class="button" onclick="redirectTo('https://www.example.com/urunler')">Ürünlerimiz</button>
+            <button class="button" onclick="redirectTo('https://www.example.com/hakkimizda')">Hakkımızda</button>
+            <button class="button" onclick="redirectTo('https://www.example.com/iletisim')">İletişim</button>
+            <button class="button" onclick="redirectTo('https://www.example.com/hizmetler')">Hizmetlerimiz</button>
+            <button class="button" onclick="redirectTo('https://www.example.com/referanslar')">Referanslar</button>
+            <button class="button" onclick="redirectTo('https://www.example.com/blog')">Blog</button>
+        </div>
     </div>
-</div>
 
-<script>
-    function breakHeart() {
-        const heartContainer = document.querySelector('.heart-container');
-        heartContainer.classList.toggle('broken');
-    }
-</script>
+    <script>
+        // Sayfa yüklendiğinde logoları göster
+        window.onload = function() {
+            document.getElementById('logoContainer').classList.add('show');
+        };
 
+        // Yönlendirme fonksiyonu
+        function redirectTo(url) {
+            window.location.href = url; // Belirtilen URL'ye yönlendir
+        }
+    </script>
 </body>
 </html>
